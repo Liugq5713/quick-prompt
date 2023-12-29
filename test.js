@@ -1,0 +1,86 @@
+/*!
+// ==UserScript==
+// @name          ChatGPT 智能 Prompts 训练模型助手
+// @namespace     https://github.com/winchesHe/chatGPT-prompt-scripts
+// @version       0.0.7
+// @description   ChatGPT 智能 Prompts 可以为你带来更好的使用体验助你训练好用的ChatGPT：添加快捷指令（prompts）新增：论文专家角色、支持自动发送、固定智能助手...还有更多需求可以到仓库Issues里发起！
+// @author        lynden 
+// @match         *://chat.openai.com/*
+// @grant         none
+// @downloadURL https://update.greasyfork.org/scripts/464448/ChatGPT%20%E6%99%BA%E8%83%BD%20Prompts%20%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E5%8A%A9%E6%89%8B.user.js
+// @updateURL https://update.greasyfork.org/scripts/464448/ChatGPT%20%E6%99%BA%E8%83%BD%20Prompts%20%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E5%8A%A9%E6%89%8B.meta.js
+// ==/UserScript==
+*/
+;(function () {
+  'use strict'
+  if (document.querySelector('#chatgptHelper')) {
+    return
+  }
+  var SHORTCUTS = [
+    ['english-sentence', '请将下面句子改写, 并且输出他的中文翻译'],
+    ['english-word', '请给出下面这个单词的含义， 造句，反义词等等，帮助人理解'],
+    ['fe engineer', '你是一个前端高级工程师，请回答下面的问题'],
+    ['chinese to english', '请给出这个句子的英文翻译，并且给出句子的解释'],
+  ]
+  var rootEle = document.createElement('div')
+  rootEle.id = 'chatgptHelper'
+  rootEle.innerHTML =
+    '<div id="chatgptHelperOpen" class="fixed top-1/2 right-1 z-50 p-3 rounded-md transition-colors duration-200 text-white cursor-pointer border border-white/20 bg-gray-900 hover:bg-gray-700 -translate-y-1/2">\u5FEB<br>\u6377<br>\u6307<br>\u4EE4</div><div id="chatgptHelperMain" class="fixed top-0 right-0 bottom-0 z-50 flex flex-col px-3 w-96 text-gray-100 bg-gray-900" style="transform: translateX(0); transition: transform 0.2s;"><div class="py-4 pl-3"><a href="https://github.com/winchesHe/chatGPT-prompt-scripts" target="_blank">ChatGPT 中文调教助手</a></div><ul class="flex flex-1 overflow-y-auto py-4 border-y border-white/20 text-sm" style="flex-wrap: wrap">'.concat(
+      SHORTCUTS.map(function (_a) {
+        var label = _a[0],
+          value = _a[1]
+        return '<li class="mr-2 mb-2 py-1 px-3 rounded-md hover:bg-gray-700 cursor-pointer" data-value="'
+          .concat(encodeURI(value), '">')
+          .concat(label, '</li>')
+      }).join(''),
+      `</ul><div class=\"flex items-center py-4\"><div id=\"chatgptHelperClose\" class=\"py-2 px-3 rounded-md cursor-pointer hover:bg-gray-700\">\u5173\u95ED</div><div class=\"flex-1 pr-3 text-right text-sm items-center\">
+    <label class="flex items-center cursor-pointer" style="display: inline-block;">
+        <input type=\"checkbox\" checked="true" id=\"isPain\" style="border-radius: 20px; margin-bottom: 3px;">
+        <span>是否固定面板</span>
+    </label>
+    <label class=\"flex items-center ml-2 cursor-pointer\" style="display: inline-block;">
+        <input type=\"checkbox\" id=\"isAutoSend\" style="border-radius: 20px; margin-bottom: 3px;">
+        <span>是否自动发送</span>
+    </label>
+    </div></div></div></div>`,
+    )
+
+  // 创建一个新的 KeyboardEvent 事件对象
+  const keyEvent = new KeyboardEvent('keydown', {
+    key: 'Enter',
+    bubbles: true,
+    cancelable: true,
+    keyCode: 13,
+  })
+  rootEle.querySelector('ul').addEventListener('click', function (event) {
+    var target = event.target
+    const isAutoSend = document.getElementById('isAutoSend').checked
+    const isPain = document.getElementById('isPain').checked
+    if (target.nodeName === 'LI') {
+      var value = target.getAttribute('data-value')
+      if (value) {
+        var textareaEle_1 = document.querySelector('textarea')
+        textareaEle_1.value = decodeURI(value)
+        textareaEle_1.dispatchEvent(new Event('input', { bubbles: true }))
+        setTimeout(function () {
+          if (isAutoSend) {
+            textareaEle_1.dispatchEvent(keyEvent)
+          } else {
+            textareaEle_1.focus()
+          }
+        }, 1e3)
+      }
+      if (!isPain) {
+        chatgptHelperMain.style.transform = 'translateX(100%)'
+      }
+    }
+  })
+  document.body.appendChild(rootEle)
+  var chatgptHelperMain = document.querySelector('#chatgptHelperMain')
+  document.querySelector('#chatgptHelperOpen').addEventListener('click', function () {
+    chatgptHelperMain.style.transform = 'translateX(0)'
+  })
+  document.querySelector('#chatgptHelperClose').addEventListener('click', function () {
+    chatgptHelperMain.style.transform = 'translateX(100%)'
+  })
+})()
