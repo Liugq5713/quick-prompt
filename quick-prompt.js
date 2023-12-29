@@ -27,10 +27,6 @@
       ['fe engineer', '你是一个前端高级工程师，请回答下面的问题'],
       ['format-label-value', '请将下面结构体变成 {label,value}的数组， 请给出完整的产物'],
     ],
-    cod2: [
-      ['fe engineer', '你是一个前端高级工程师，请回答下面的问题'],
-      ['format-label-value', '请将下面结构体变成 {label,value}的数组， 请给出完整的产物'],
-    ],
   }
   var rootEle = document.createElement('div')
   rootEle.id = 'chatgptHelper'
@@ -39,16 +35,18 @@
     快<br>捷<br>指<br>令
   </div>
   <div id="chatgptHelperMain" class="fixed top-0 right-0 bottom-0 z-50 flex flex-col px-3 w-96 text-gray-100 bg-gray-900" style="transform: translateX(0); transition: transform 0.2s;">
-    <div class="py-4 pl-3">
+    <div class="py-4 pl-2">
     <h2>
       <a href="https://github.com/Liugq5713/quick-prompt" target="_blank">Quick Prompt</a>
     </h2>
 
     </div>
 
-${Object.keys(SHORTCUTS).map(group => {
-  return `<div class="border-y border-white/20">
-      <h3>${group}</h3>
+<ul>
+${Object.keys(SHORTCUTS)
+  .map(group => {
+    return `<div class="border-b border-white/20">
+      <h4 class="ml-2 mt-3 text-lg" style="color: #ffffff33">${group}</h4>
       <ul class="flex flex-1 overflow-y-auto py-4  text-sm" style="flex-wrap: wrap">
       ${SHORTCUTS[group]
         .map(
@@ -61,7 +59,9 @@ ${Object.keys(SHORTCUTS).map(group => {
         .join('')}
     </ul>
     </div>`
-})}
+  })
+  .join('')}
+</ul>
    <div class="flex items-center py-4 absolute bottom-0">
       <div id="chatgptHelperClose" class="py-2 px-3 rounded-md cursor-pointer hover:bg-gray-700">
         关闭
@@ -100,6 +100,7 @@ ${Object.keys(SHORTCUTS).map(group => {
       if (value) {
         var textareaEle_1 = document.querySelector('textarea')
         textareaEle_1.value = decodeURI(value)
+        console.log('---', textareaEle_1.value)
         textareaEle_1.dispatchEvent(new Event('input', { bubbles: true }))
         setTimeout(function () {
           if (isAutoSend) {
