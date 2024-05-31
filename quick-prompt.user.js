@@ -3,11 +3,10 @@
 // @name          ChatGPT Quick Prompts 
 // @namespace     https://github.com/Liugq5713/quick-prompt
 // @version       0.0.8
-// @description   ChatGPT 智能 Prompts 可以为你带来更好的使用体验助你训练好用的ChatGPT：添加快捷指令（prompts）新增：论文专家角色、支持自动发送、固定智能助手...还有更多需求可以到仓库Issues里发起！
+// @description   ChatGPT 智能 Prompts 可以为你带来更好的使用体验助你训练好用的ChatGPT
 // @author        lynden
 // @match         *://chatgpt.com/*
 // @grant         none
-// https://github.com/Liugq5713/quick-prompt/blob/main/quick-prompt.user.js
 // ==/UserScript==
 */
 ;(function () {
