@@ -1,14 +1,12 @@
 /*!
 // ==UserScript==
-// @name          ChatGPT 智能 Prompts 训练模型助手
-// @namespace     https://github.com/winchesHe/chatGPT-prompt-scripts
+// @name          ChatGPT Quick Prompts 
+// @namespace     https://github.com/Liugq5713/quick-prompt
 // @version       0.0.7
 // @description   ChatGPT 智能 Prompts 可以为你带来更好的使用体验助你训练好用的ChatGPT：添加快捷指令（prompts）新增：论文专家角色、支持自动发送、固定智能助手...还有更多需求可以到仓库Issues里发起！
 // @author        lynden
-// @match         *://chat.openai.com/*
+// @match         *://chatgpt.com/*
 // @grant         none
-// @downloadURL https://update.greasyfork.org/scripts/464448/ChatGPT%20%E6%99%BA%E8%83%BD%20Prompts%20%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E5%8A%A9%E6%89%8B.user.js
-// @updateURL https://update.greasyfork.org/scripts/464448/ChatGPT%20%E6%99%BA%E8%83%BD%20Prompts%20%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B%E5%8A%A9%E6%89%8B.meta.js
 // ==/UserScript==
 */
 ;(function () {
