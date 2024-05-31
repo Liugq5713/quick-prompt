@@ -7,6 +7,7 @@
 // @author        lynden
 // @match         *://chatgpt.com/*
 // @grant         none
+// https://github.com/Liugq5713/quick-prompt/blob/main/quick-prompt.user.js
 // ==/UserScript==
 */
 ;(function () {
@@ -16,6 +17,7 @@
   }
   var SHORTCUTS = {
     english: [
+      ['sync', '请将下面句子改写, 并且输出他的中文翻译'],
       ['sentence', '请将下面句子改写, 并且输出他的中文翻译'],
       ['word', '请给出下面这个单词的含义， 造句，反义词等等，帮助人理解'],
       ['grammar', '分析这个句子的词法结构，并给出中文解释，试图教会我'],
